@@ -37,7 +37,7 @@ PATH_ID_HOT = 'hotID.txt'       # ID摄像头经纬度维度表
 def parseArgs(args):
     parser = argparse.ArgumentParser()
     globalArgs = parser.add_argument_group('Global options')
-    globalArgs.add_argument('--prefix', type=int, default=0) 
+    globalArgs.add_argument('--prefix', type=str, default='0') 
     return parser.parse_args(args)
 
 def genMac(inPrefix):
