@@ -25,7 +25,7 @@ def parseArgs(args):
 def getMaxMac(inDicMac,idCard,inPrefix):
     try:
         maxKey = max(inDicMac,key=inDicMac.get)
-        print('id:{}\t,maxHitMac:{}\t,hitRecords:{}\ttaskID:{}'.format(idCard,maxKey,inDicMac[maxKey],inPrefix))
+        print('id:{},\tmaxHitMac:{},\thitRecords:{},\ttaskID:{}'.format(idCard,maxKey,inDicMac[maxKey],inPrefix))
     except:
         pass
     # sorted(dicMac.items(),key=lambda item:item[1])
@@ -74,7 +74,8 @@ def matchWifi(inPrefix):
                 dicMac[row[0]] = dicMac[row[0]] + 1
             else:
                 dicMac[row[0]] = 1    
-
+        conn.commit()
+        
         idRows = idRows + 1
         if idRows % 100 == 0:
             print('{} IDs done. cost:{}s,\t taskID:{}'.format(idRows,(datetime.now() - taskStartTime).seconds,inPrefix))
@@ -84,7 +85,7 @@ def matchWifi(inPrefix):
 
     getMaxMac(dicMac,idCard,inPrefix)
     print('{} IDs done. cost:{}s,\t taskID:{}'.format(idRows,(datetime.now() - taskStartTime).seconds,inPrefix))
-    conn.commit()
+
     cur.close()
     conn.close()
 
