@@ -21,6 +21,10 @@ def parseArgs(args):
     globalArgs.add_argument('--prefix', type=str, default='0,1') 
     return parser.parse_args(args)
 
+def getMaxMac(inDicMac):
+    print(inDicMac)
+    # sorted(dicMac.items(),key=lambda item:item[1])
+
 def matchWifi(inPrefix):
 
     fileName = CSV_PATH + '/hisID_' + inPrefix +'.txt'
@@ -62,8 +66,7 @@ def matchWifi(inPrefix):
         rows = cur.fetchall()        # all rows in table
 
         if IDfromFile != idCard:
-            # sorted(dicMac.items(),key=lambda item:item[1])
-            print(dicMac)
+            getMaxMac(dicMac)
             idCard = IDfromFile
             dicMac = {}    
         for row in rows:
@@ -71,7 +74,8 @@ def matchWifi(inPrefix):
                 dicMac[row[0]] = dicMac[row[0]] + 1
             else:
                 dicMac[row[0]] = 1    
-
+    getMaxMac(dicMac)
+    print('{} IDs done. cost:{}s'.format(idRows,(datetime.now() - taskStartTime).seconds))
     conn.commit()
     cur.close()
     conn.close()
